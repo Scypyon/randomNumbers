@@ -1,40 +1,53 @@
 import React, { Component } from "react";
+import Chart from "./components/Chart";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+`
 
 class App extends Component {
   state = {
-    numbers: [{ id: 0, repeats: 0 }]
+    numbers: []
   };
-
+  numbers = [];
   componentDidMount = () => {
-    const numbers = [];
     for (let i = 0; i <= 100; i++) {
-      numbers.push({ id: i, repeats: 0 });
+      this.numbers.push(0);
     }
     this.setState({
-      numbers
+      numbers: this.numbers
     });
+    this.interval = setInterval(this.generateNumbers, 1000);
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.interval);
   };
 
   generateNumbers = () => {
-    const RandomNumber = Math.floor(Math.random() * 100);
-    console.log(RandomNumber);
-    const tab = [...this.state.numbers]
-    tab.forEach(task=>{
-      if(task.id === RandomNumber){
-        task.repeats = task.repeats +1
+    const randomNumber = Math.floor(Math.random() * 100);
+    console.log(randomNumber);
+
+    this.state.numbers.forEach((_, i) => {
+      if (i === randomNumber) {
+        this.numbers[i]++;
       }
-    })
+    });
     this.setState({
-      numbers: tab
-    })
+      numbers: this.numbers
+    });
   };
 
   render() {
     console.log(this.state.numbers);
     return (
-      <>
-        <h1>działa</h1>
-      </>
+      <Container>
+        {this.state.numbers.map(task => (
+          <Chart task={task} />
+        ))}
+      </Container>
     );
   }
 }
