@@ -18,10 +18,18 @@ class App extends Component {
   generateNumbers = () => {
     const RandomNumber = Math.floor(Math.random() * 100);
     console.log(RandomNumber);
+    const tab = [...this.state.numbers]
+    tab.forEach(task=>{
+      if(task.id === RandomNumber){
+        task.repeats = task.repeats +1
+      }
+    })
+    this.setState({
+      numbers: tab
+    })
   };
 
   render() {
-    setInterval(this.generateNumbers, 3000);
     console.log(this.state.numbers);
     return (
       <>
