@@ -2,12 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.div`
-    font-size:1.7rem;
+    position:absolute;
+    bottom:-5vh;
+    width:1vw;
+    height:8vh;
+    background-color: green;
 `
 
-const Chart = ({task}) => {
+const Chart = () => {
     return ( 
-        <Item>{task}</Item>
+        <Item></Item>
      );
 }
  
