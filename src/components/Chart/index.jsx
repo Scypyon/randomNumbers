@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.div`
+    :nth-child(odd){
+        background-color: #00B7EB;
+    }
+    :nth-child(even){
+        background-color: #0084b8;
+    }
     width:0.895vw;
     height:${({count})=>count*0.29833}vh;
     background-color: green;
