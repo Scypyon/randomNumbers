@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Item = styled.div`
     width:0.895vw;
-    height:${({count})=>count*0.0895}vh;
+    height:${({count})=>count*0.29833}vh;
     background-color: green;
     margin:0;
     padding:0;

@@ -47,7 +47,7 @@ const BottomStatsItem = styled.p`
 class App extends Component {
   state = {
     numbers: Array(100).fill(0),
-    leftItem: [1000, 900, 800, 700, 600, 500, 400, 300, 200, 100],
+    leftItem: [300, 270, 240, 210, 180, 150, 120, 90, 60, 30],
     bottomItem: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
   };
   componentDidMount = () => {
