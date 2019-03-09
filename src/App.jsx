@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Chart from "./components/Chart";
+import Charts from "./containers/Charts";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -46,27 +46,10 @@ const BottomStatsItem = styled.p`
 
 class App extends Component {
   state = {
-    numbers: Array(100).fill(0),
     leftItem: [300, 270, 240, 210, 180, 150, 120, 90, 60, 30],
     bottomItem: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
   };
-  componentDidMount = () => {
-    this.interval = setInterval(this.addRandomNumber, 50);
-  };
-
-  componentWillUnmount = () => {
-    clearInterval(this.interval);
-  };
-
-  addRandomNumber = () => {
-    const randomNumber = Math.floor(Math.random() * 100);
-    const numbers = [...this.state.numbers];
-    numbers[randomNumber]++;
-    this.setState({
-      numbers
-    });
-  };
-
+  
   render() {
     return (
       <>
@@ -81,9 +64,7 @@ class App extends Component {
               <BottomStatsItem key={i}>{task}</BottomStatsItem>
             ))}
           </BottomStats>
-          {this.state.numbers.map((task, i) => (
-            <Chart key={i} position={i} number={task} />
-          ))}
+          <Charts/>
         </Container>
       </>
     );
