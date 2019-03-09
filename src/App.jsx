@@ -1,47 +1,57 @@
 import React, { Component } from "react";
 import Chart from "./components/Chart";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.div`
-  width:100vw;
-  height:100vh;
-  border-left:5px solid black;
-  border-bottom:5px solid black;
-  margin:30px;
-  postion:relative;
-`
+  width: 90vw;
+  height: 90vh;
+  position: relative;
+  box-sizing: border-box;
+  border-left: 0.5vw solid #000;
+  border-bottom: 0.5vh solid #000;
+`;
 
 const LeftStats = styled.div`
-  width:3vw;
-  height:100vh;
-  position:absolute;
-  left:0;
-  top:0;
-  float:left;
-`
+  width: 3vw;
+  height: 90vh;
+  position: absolute;
+  left: -3vw;
+  top: 0;
+  float: left;
+  margin-bottom: 0.5vh;
+`;
 
 const BottomStats = styled.div`
-  position:absolute;
-  left:0;
-  bottom:-10vh;
-  height:3vh;
-  width:100vw;
-`
+  position: absolute;
+  left: 0;
+  bottom: -3vw;
+  height: 3vw;
+  width: 90vw;
+  padding-top:0.5vw;
+`;
 
 const LeftStatsItem = styled.p`
-  margin:8vh 0;
-`
+  height:8.95vh;
+  margin:0
+  border-top:0.1vh solid #000;
+`;
 const BottomStatsItem = styled.p`
-  margin:0 4vw;
-  float:left;
-`
+  width:8.95vw;
+  margin:0;
+  float: left;
+  text-align:right;
+  border-right:0.1vh solid #000;
+  height: 2vw;
+`;
 
 class App extends Component {
   state = {
-    numbers: Array(100).fill(0)
+    numbers: Array(100).fill(0),
+    leftItem: [1000, 900, 800, 700, 600, 500, 400, 300, 200, 100],
+    bottomItem: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
   };
   componentDidMount = () => {
-    this.interval = setInterval(this.addRandomNumber, 1000);
+    this.interval = setInterval(this.addRandomNumber, 50);
   };
 
   componentWillUnmount = () => {
@@ -50,46 +60,33 @@ class App extends Component {
 
   addRandomNumber = () => {
     const randomNumber = Math.floor(Math.random() * 100);
-    const numbers = [...this.state.numbers]
-    numbers[randomNumber]++
+    const numbers = [...this.state.numbers];
+    numbers[randomNumber]++;
     this.setState({
-      numbers,
-    })
+      numbers
+    });
   };
 
   render() {
-    console.log(this.state.numbers);
     return (
       <>
         <Container>
           <LeftStats>
-            <LeftStatsItem>1000</LeftStatsItem>
-            <LeftStatsItem>900</LeftStatsItem>
-            <LeftStatsItem>800</LeftStatsItem>
-            <LeftStatsItem>700</LeftStatsItem>
-            <LeftStatsItem>600</LeftStatsItem>
-            <LeftStatsItem>500</LeftStatsItem>
-            <LeftStatsItem>400</LeftStatsItem>
-            <LeftStatsItem>200</LeftStatsItem>
-            <LeftStatsItem>100</LeftStatsItem>
-            <LeftStatsItem>0</LeftStatsItem>
+            {this.state.leftItem.map((task,i) => (
+              <LeftStatsItem key={i}>{task}</LeftStatsItem>
+            ))}
           </LeftStats>
           <BottomStats>
-          <BottomStatsItem>10</BottomStatsItem>
-            <BottomStatsItem>20</BottomStatsItem>
-            <BottomStatsItem>30</BottomStatsItem>
-            <BottomStatsItem>40</BottomStatsItem>
-            <BottomStatsItem>50</BottomStatsItem>
-            <BottomStatsItem>60</BottomStatsItem>
-            <BottomStatsItem>70</BottomStatsItem>
-            <BottomStatsItem>80</BottomStatsItem>
-            <BottomStatsItem>90</BottomStatsItem>
-            <BottomStatsItem>100</BottomStatsItem>
+            {this.state.bottomItem.map((task,i) => (
+              <BottomStatsItem key={i}>{task}</BottomStatsItem>
+            ))}
           </BottomStats>
-          <Chart tab={this.state.numbers}></Chart>
+          {this.state.numbers.map((task, i) => (
+            <Chart key={i} position={i} number={task} />
+          ))}
         </Container>
       </>
-    )
+    );
   }
 }
 
