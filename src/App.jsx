@@ -52,7 +52,6 @@ class App extends Component {
   
   render() {
     return (
-      <>
         <Container>
           <LeftStats>
             {this.state.leftItem.map((task,i) => (
@@ -66,7 +65,6 @@ class App extends Component {
           </BottomStats>
           <Charts/>
         </Container>
-      </>
     );
   }
 }
