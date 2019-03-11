@@ -9,7 +9,7 @@ const Item = styled.div`
     background-color: #0084b8;
   }
   width: 0.895vw;
-  height: ${({ count }) => count * 0.29833}vh;
+  height: ${({ count,length }) => count * 89.5/(length*10)}vh;
   background-color: green;
   margin: 0;
   padding: 0;
@@ -19,8 +19,8 @@ const Item = styled.div`
   border: 1px solid #000;
 `;
 
-const Chart = ({ number, position }) => {
-  return <Item count={number} position={position} />;
+const Chart = ({ number, position, length }) => {
+  return <Item length={length} count={number} position={position} />;
 };
 
 export default Chart;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Charts from "./containers/Charts";
+import Chart from "./components/Chart";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -27,44 +27,109 @@ const BottomStats = styled.div`
   bottom: -3vw;
   height: 3vw;
   width: 90vw;
-  padding-top:0.5vw;
+  padding-top: 0.5vw;
 `;
 
 const LeftStatsItem = styled.p`
-  height:8.95vh;
+  height:${({length})=>89.5/length}vh;
   margin:0
   border-top:0.1vh solid #000;
 `;
 const BottomStatsItem = styled.p`
-  width:8.95vw;
-  margin:0;
+  width: 8.95vw;
+  margin: 0;
   float: left;
-  text-align:right;
-  border-right:0.1vh solid #000;
+  text-align: right;
+  border-right: 0.1vh solid #000;
   height: 2vw;
+`;
+
+const StartStop = styled.button`
+  position: absolute;
+  top: -5vh;
+  left: -5vw;
+`;
+
+const TimerInput = styled.input`
+  position: absolute;
+  top: -5vh;
+  left: -2vw;
 `;
 
 class App extends Component {
   state = {
-    leftItem: [300, 270, 240, 210, 180, 150, 120, 90, 60, 30],
-    bottomItem: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    leftItem: [10],
+    bottomItem: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    numbers: Array(100).fill(0),
+    start_stop: true,
+    timerInput: 50
   };
-  
+
+  handleInput = e => {
+    this.setState({
+      timerInput: e.target.value
+    });
+  };
+
+  startStopInterval = start_stop => {
+    if (start_stop) {
+      this.interval = setInterval(this.addRandomNumber, this.state.timerInput);
+      this.setState({
+        start_stop: false
+      });
+    } else {
+      clearInterval(this.interval);
+      this.setState({
+        start_stop: true
+      });
+    }
+  };
+
+  addRandomNumber = () => {
+    const randomNumber = Math.floor(Math.random() * 100);
+    const numbers = [...this.state.numbers];
+    numbers[randomNumber]++;
+    this.setState({
+      numbers
+    });
+
+    const leftItem = [...this.state.leftItem]
+
+    this.state.numbers.forEach(task=>{
+      if(task>=leftItem[0]){
+        leftItem.unshift(leftItem[0]+10)
+        this.setState({
+          leftItem,
+        })
+      }
+    })
+  };
+
   render() {
     return (
-        <Container>
-          <LeftStats>
-            {this.state.leftItem.map((task,i) => (
-              <LeftStatsItem key={i}>{task}</LeftStatsItem>
-            ))}
-          </LeftStats>
-          <BottomStats>
-            {this.state.bottomItem.map((task,i) => (
-              <BottomStatsItem key={i}>{task}</BottomStatsItem>
-            ))}
-          </BottomStats>
-          <Charts/>
-        </Container>
+      <Container>
+        <LeftStats>
+          {this.state.leftItem.map((task, i) => (
+            <LeftStatsItem length={this.state.leftItem.length} key={i}>
+              {task}
+            </LeftStatsItem>
+          ))}
+        </LeftStats>
+        <BottomStats>
+          {this.state.bottomItem.map((task, i) => (
+            <BottomStatsItem key={i}>{task}</BottomStatsItem>
+          ))}
+        </BottomStats>
+        {this.state.numbers.map((task, i) => (
+          <Chart length={this.state.leftItem.length} key={i} position={i} number={task} />
+        ))}
+        <StartStop
+          onClick={() => this.startStopInterval(this.state.start_stop)}
+        >
+          {this.state.start_stop ? "START" : `STOP`}
+        </StartStop>
+        <TimerInput onChange={this.handleInput} type="text" />
+      </Container>
     );
   }
 }
