@@ -9,7 +9,7 @@ const Item = styled.div`
     background-color: #0084b8;
   }
   width: 0.895vw;
-  height: ${({ count,length }) => count * 89.5/(length*10)}vh;
+  height: 8.95vh;
   background-color: green;
   margin: 0;
   padding: 0;
@@ -17,7 +17,7 @@ const Item = styled.div`
   bottom: 0;
   left: ${({ position }) => position * 0.895}vw;
   border: 1px solid #000;
-  transition: height 1s;
+  transform: translateY(-${({ count,length }) => count * 89.5/(length*10)}vh);
 `;
 
 const Chart = ({ number, position, length }) => {
