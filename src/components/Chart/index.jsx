@@ -8,21 +8,26 @@ const Item = styled.div`
   :nth-child(even) {
     background-color: #0084b8;
   }
+  height: 89.5vh;
   width: 0.895vw;
-  height: 8.95vh;
-  background-color: green;
   margin: 0;
   padding: 0;
   position: absolute;
-  bottom: 0;
+  bottom: -89.5vh;;
   left: ${({ position }) => position * 0.895}vw;
   border: 1px solid #000;
-  transform: translateY(-${({ count,length }) => count * 89.5/(length*10)}vh);
-  transition: transform 1s ease;
+  transition: transform 0.5s, height 0.5s;
 `;
 
 const Chart = ({ number, position, length }) => {
-  return <Item length={length} count={number} position={position} />;
+  return (
+    <Item
+      style={{
+        transform: `translateY(-${(number * 8.95) / (length)}vh)`
+      }}
+      position={position}
+    />
+  );
 };
 
 export default Chart;

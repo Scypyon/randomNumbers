@@ -18,6 +18,7 @@ const BottomStats = styled.div`
   height: 3vw;
   width: 90vw;
   padding-top: 0.5vw;
+  background-color:#fff;
 `;
 
 const BottomStatsItem = styled.p`

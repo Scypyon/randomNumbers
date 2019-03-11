@@ -22,7 +22,7 @@ const LeftStatsItem = styled.p`
 const StartStop = styled.button`
   position: absolute;
   top: -5vh;
-  left: -5vw;
+  left: -5.5vw;
 `;
 
 const TimerInput = styled.input`
@@ -34,7 +34,7 @@ const TimerInput = styled.input`
 const DrawingNumbers = styled.p`
   position: absolute;
   top: -6.2vh;
-  left: 10vw;
+  left: 13vw;
 `;
 
 class Charts extends Component {
