@@ -24,7 +24,7 @@ const LeftStats = styled.div`
 const BottomStats = styled.div`
   position: absolute;
   left: 0;
-  bottom: -3vw;
+  bottom: -2.7vw;
   height: 3vw;
   width: 90vw;
   padding-top: 0.5vw;
@@ -34,6 +34,7 @@ const LeftStatsItem = styled.p`
   height:${({length})=>89.5/length}vh;
   margin:0
   border-top:0.1vh solid #000;
+  transition: height 1s;
 `;
 const BottomStatsItem = styled.p`
   width: 8.95vw;
