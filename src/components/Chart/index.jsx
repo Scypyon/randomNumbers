@@ -13,20 +13,19 @@ const Item = styled.div`
   margin: 0;
   padding: 0;
   position: absolute;
-  bottom: -89.5vh;;
-  left: ${({ position }) => position * 0.895}vw;
+  bottom: -89.5vh;
   border: 1px solid #000;
   transition: transform 0.5s, height 0.5s;
-  z-index:-3;
+  z-index: -3;
 `;
 
 const Chart = ({ number, position, length }) => {
   return (
     <Item
       style={{
-        transform: `translateY(-${(number * 8.95) / (length)}vh)`
+        transform: `translateY(-${(number * 8.95) / length}vh)`,
+        left: `${position * 0.895}vw`
       }}
-      position={position}
     />
   );
 };

@@ -13,7 +13,6 @@ const LeftStats = styled.div`
 `;
 
 const LeftStatsItem = styled.p`
-  height:${({ length }) => 89.5 / length}vh;
   margin:0
   border-top:0.1vh solid #000;
   transition: height 1s ease;
@@ -52,18 +51,16 @@ class Charts extends Component {
     });
   };
 
+  toggleStartStop = () => {
+    this.setState(prevState => ({
+      startStop: !prevState.startStop
+    }));
+  };
+
   startStopInterval = startStop => {
-    if (startStop) {
+    if (startStop)
       this.interval = setInterval(this.addRandomNumber, this.state.timerInput);
-      this.setState({
-        startStop: false
-      });
-    } else {
-      clearInterval(this.interval);
-      this.setState({
-        startStop: true
-      });
-    }
+    else clearInterval(this.interval);
   };
 
   addRandomNumber = () => {
@@ -89,7 +86,12 @@ class Charts extends Component {
       <>
         <LeftStats>
           {this.state.leftItem.map((task, i) => (
-            <LeftStatsItem length={this.state.leftItem.length} key={i}>
+            <LeftStatsItem
+              style={{
+                height: `${89.5 / this.state.leftItem.length}vh`
+              }}
+              key={i}
+            >
               {task}
             </LeftStatsItem>
           ))}
@@ -102,7 +104,12 @@ class Charts extends Component {
             number={task}
           />
         ))}
-        <StartStop onClick={() => this.startStopInterval(this.state.startStop)}>
+        <StartStop
+          onClick={() => {
+            this.startStopInterval(this.state.startStop);
+            this.toggleStartStop();
+          }}
+        >
           {this.state.startStop ? "START" : `STOP`}
         </StartStop>
         <TimerInput onChange={this.handleInput} type="text" />
