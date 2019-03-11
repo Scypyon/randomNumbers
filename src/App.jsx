@@ -31,7 +31,7 @@ const BottomStats = styled.div`
 `;
 
 const LeftStatsItem = styled.p`
-  height:${({length})=>89.5/length}vh;
+  height:${({ length }) => 89.5 / length}vh;
   margin:0
   border-top:0.1vh solid #000;
   transition: height 1s;
@@ -43,6 +43,7 @@ const BottomStatsItem = styled.p`
   text-align: right;
   border-right: 0.1vh solid #000;
   height: 2vw;
+  padding-top:1vw;
 `;
 
 const StartStop = styled.button`
@@ -57,13 +58,20 @@ const TimerInput = styled.input`
   left: -2vw;
 `;
 
+const DrawingNumbers = styled.p`
+  position: absolute;
+  top: -6.2vh;
+  left: 10vw;
+`;
+
 class App extends Component {
   state = {
     leftItem: [10],
     bottomItem: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     numbers: Array(100).fill(0),
     start_stop: true,
-    timerInput: 50
+    timerInput: 50,
+    drawingNumbers: 0
   };
 
   handleInput = e => {
@@ -87,23 +95,21 @@ class App extends Component {
   };
 
   addRandomNumber = () => {
-    const randomNumber = Math.floor(Math.random() * 100);
-    const numbers = [...this.state.numbers];
-    numbers[randomNumber]++;
-    this.setState({
-      numbers
-    });
+    this.setState(prevState => {
+      const randomNumber = Math.floor(Math.random() * 100);
+      const numbers = [...prevState.numbers];
+      numbers[randomNumber]++;
 
-    const leftItem = [...this.state.leftItem]
-
-    this.state.numbers.forEach(task=>{
-      if(task>=leftItem[0]){
-        leftItem.unshift(leftItem[0]+10)
-        this.setState({
-          leftItem,
-        })
+      const leftItem = [...prevState.leftItem];
+      if (numbers[randomNumber] >= leftItem[0]) {
+        leftItem.unshift(leftItem[0] + 10);
       }
-    })
+      return {
+        numbers,
+        leftItem,
+        drawingNumbers: prevState.drawingNumbers + 1
+      };
+    });
   };
 
   render() {
@@ -122,7 +128,12 @@ class App extends Component {
           ))}
         </BottomStats>
         {this.state.numbers.map((task, i) => (
-          <Chart length={this.state.leftItem.length} key={i} position={i} number={task} />
+          <Chart
+            length={this.state.leftItem.length}
+            key={i}
+            position={i}
+            number={task}
+          />
         ))}
         <StartStop
           onClick={() => this.startStopInterval(this.state.start_stop)}
@@ -130,6 +141,7 @@ class App extends Component {
           {this.state.start_stop ? "START" : `STOP`}
         </StartStop>
         <TimerInput onChange={this.handleInput} type="text" />
+        <DrawingNumbers>{this.state.drawingNumbers}</DrawingNumbers>
       </Container>
     );
   }
