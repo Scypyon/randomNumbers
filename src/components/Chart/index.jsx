@@ -18,6 +18,7 @@ const Item = styled.div`
   left: ${({ position }) => position * 0.895}vw;
   border: 1px solid #000;
   transform: translateY(-${({ count,length }) => count * 89.5/(length*10)}vh);
+  transition: height 1s ease;
 `;
 
 const Chart = ({ number, position, length }) => {
