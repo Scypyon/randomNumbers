@@ -14,11 +14,12 @@ const Container = styled.div`
 const BottomStats = styled.div`
   position: absolute;
   left: 0;
-  bottom: -2.7vw;
-  height: 3vw;
+  bottom: -5vw;
+  height: 5vw;
   width: 90vw;
   padding-top: 0.5vw;
   background-color:#fff;
+  z-index:-2;
 `;
 
 const BottomStatsItem = styled.p`

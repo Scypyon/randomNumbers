@@ -17,6 +17,7 @@ const Item = styled.div`
   left: ${({ position }) => position * 0.895}vw;
   border: 1px solid #000;
   transition: transform 0.5s, height 0.5s;
+  z-index:-3;
 `;
 
 const Chart = ({ number, position, length }) => {
